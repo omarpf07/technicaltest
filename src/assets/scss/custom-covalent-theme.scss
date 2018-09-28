@@ -1,0 +1,26 @@
+@import '~@angular/material/theming';
+@import '~@covalent/core/theming/all-theme';
+@import './theme.scss';
+
+@include mat-core();
+
+$primaryTone: 600;
+
+$primary: mat-palette($app-primary, $primaryTone);
+$accent:  mat-palette($app-accent, $primaryTone, 900, A400);    
+$warn:    mat-palette($mat-red, $primaryTone);
+
+$theme:   mat-light-theme($primary, $accent, $warn);
+
+@include angular-material-theme($theme);
+@include covalent-theme($theme);
+
+$css-primary: mat-color($primary, $primaryTone);
+$css-secondary: mat-color($primary, $primaryTone + 200);
+$css-secondary-menu: mat-color($primary, $primaryTone + 300);
+$css-color-primary:  mat-contrast($primary, $primaryTone);
+$css-color-secondary: mat-contrast($primary, $primaryTone + 200);
+
+
+@include angular-material-theme($theme);
+@include covalent-theme($theme);

@@ -1,0 +1,11 @@
+<td-layout>
+    <td-layout-nav toolbarTitle="Example App" class="animated fadeIn">
+        <div td-toolbar-content fxLayout="row" fxLayoutAlign="end center" class="w-100">
+            <mat-icon fxFlexOffset="auto" class="clickable animated bounceIn" matTooltip="Salir de la App" *ngIf="auth.isConnected()"
+                (click)="logOut()">exit_to_app</mat-icon>
+        </div>
+        <div class="h-100" flex-gt-sm="100" style="background: #F5F9FB">
+            <router-outlet></router-outlet>
+        </div>
+    </td-layout-nav>
+</td-layout>

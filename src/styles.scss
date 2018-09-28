@@ -1,0 +1,33 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "assets/css/animate.css";
+
+@font-face {
+    font-family: "RobotoRegular";
+    src: url("assets/fonts/Roboto-Regular.ttf");
+}
+
+@font-face {
+    font-family: "OpenSansRegular";
+    src: url("assets/fonts/OpenSans-Regular.ttf");
+}
+
+body{
+    font-family: OpenSansRegular;
+}
+
+h1{
+    font-family: RobotoRegular;
+}
+
+
+/* Misc Styles */
+
+.dialog{
+    mat-dialog-container {
+        padding: 0;
+      }
+}
+
+.clickable{
+    cursor: pointer;
+}

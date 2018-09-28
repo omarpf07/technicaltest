@@ -1,0 +1,13 @@
+<div fxLayout="row" fxLayoutAlign="start center">
+  <div fxFlex class="bg-warning">
+    <h4 class="text-white p-2">Alerta!</h4>
+  </div>
+</div>
+<div fxLayout="column" fxLayoutAlign="start center">
+  <div fxFlex>
+    <p class="lead text-xs p-3">
+      Haz sido redireccionado aquí por haber recargado la página luego de haber iniciado sesión.
+    </p>
+  </div>
+  <button fxFlex="1 1 auto" mat-button color="warn" (click)="closeDialog()">Aceptar</button>
+</div>

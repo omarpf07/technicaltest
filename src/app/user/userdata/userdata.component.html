@@ -1,0 +1,80 @@
+<div class="w-100 h-100 animated" [ngClass]="{'fadeIn': hasEntered}" layout="row" layout-align="start center" *ngIf="user.role === 'ADMINISTRATOR' || user.role === 'OBSERVER' ">
+  <span class="push-left-sm">
+    <span class="mat-title">Lista de usuarios</span>
+  </span>
+  <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Search here" (searchDebounce)="search($event)"
+    flex>
+  </td-search-box>
+  <mat-divider></mat-divider>
+  <td-data-table #dataTable [data]="filteredData" [columns]="columns" [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows"
+    [sortOrder]="sortOrder" (sortChange)="sort($event)">
+    <ng-template tdDataTableTemplate="country" let-value="value">
+      <img *ngIf="value === 'United States'" [matTooltip]="value" src="https://www.countryflags.io/us/flat/32.png">
+      <img *ngIf="value === 'Italy'" [matTooltip]="value" src="https://www.countryflags.io/it/flat/32.png">
+      <img *ngIf="value === 'Venezuela'" [matTooltip]="value" src="https://www.countryflags.io/us/flat/32.png">
+      <img *ngIf="value === 'France'" [matTooltip]="value" src="https://www.countryflags.io/fr/flat/32.png">
+      <img *ngIf="value === 'Japan'" [matTooltip]="value" src="https://www.countryflags.io/jp/flat/32.png">
+      <img *ngIf="value === 'Iceland'" [matTooltip]="value" src="https://www.countryflags.io/is/flat/32.png">
+    </ng-template>
+    <ng-container *ngIf="user.role === 'OBSERVER'">
+      <ng-template tdDataTableTemplate="description" let-value="value">
+        <span>{{ value ? value : '-' }}</span>
+      </ng-template>
+    </ng-container>
+    <ng-container *ngIf="user.role === 'ADMINISTRATOR'">
+      <ng-template tdDataTableTemplate="description" let-value="value">
+        <mat-form-field class="w-100" appareance="legacy">
+          <input matInput [value]="value ? value : '-'" (click)="$event.stopPropagation()">
+          <mat-icon matSuffix color="accent">edit</mat-icon>
+        </mat-form-field>
+      </ng-template>
+    </ng-container>
+  </td-data-table>
+  <div class="md-padding" *ngIf="!dataTable.hasData" fxLayout="row" fxLayoutAlign="center center" id="noResults">
+    <h3 class="text-center display-5">No results to display.</h3>
+  </div>
+</div>
+
+<div fxLayout="row" fxLayoutAlign="center center" *ngIf="user.role === 'USER'" class="h-100">
+  <mat-card fxFlex="0 1 80">
+    <mat-card-title>
+      <h5>Información del usuario</h5>
+    </mat-card-title>
+    <mat-divider></mat-divider>
+    <mat-card-content class="pt-3">
+      <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
+        <mat-form-field appearance="fill" fxFlex="1 1 auto" class="w-100">
+          <mat-label>Nombre:</mat-label>
+          <input matInput readonly [(ngModel)]="user.name">
+        </mat-form-field>
+        <mat-form-field appearance="fill" fxFlex="1 1 auto" class="w-100">
+          <mat-label>Nombre de la Cuenta:</mat-label>
+          <input matInput readonly [(ngModel)]="user.username">
+        </mat-form-field>
+        <div fxFlex="1 1 auto" class="w-100">
+          <mat-form-field appearance="fill" fxFlex="0 1 auto" class="w-100">
+            <mat-label>Escoge tu país</mat-label>
+            <mat-select placeholder="Escoge tu país">
+              <mat-option *ngFor="let country of countries" [value]="country.id">
+                {{country.name}}
+              </mat-option>
+            </mat-select>
+            <mat-icon matSuffix color="accent">my_location</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="column">
+        <mat-form-field appearance="fill" fxFlex="0 1 auto">
+          <mat-label>Acerca de ti</mat-label>
+          <textarea matInput [(ngModel)]="user.description" maxlength="1000"></textarea>
+          <mat-hint align="end" class="text-muted">{{user.description.length}} / 50</mat-hint>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div fxLayout="column" fxLayoutAlign="center center" *ngIf="!user.role">
+  <h4 fxFlex fxFlexAlign="center" class="text-center lead text-muted">Woops! Parece que no tienes ningún rol asignado.</h4>
+  <img fxFlex fxFlexAlign="center" src="assets/img/404guy.png" class="mt-5 img-fluid" alt="" srcset="">
+</div>

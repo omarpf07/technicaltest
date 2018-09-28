@@ -1,0 +1,11 @@
+{
+  "data": [{
+      "username": "a",
+      "name": "John Doe",
+      "password": "a",
+      "role": "USER",
+      "country": "United States",
+      "description": "This is a test"
+    }
+  ]
+}
