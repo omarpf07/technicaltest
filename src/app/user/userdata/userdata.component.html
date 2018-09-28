@@ -23,8 +23,8 @@
     </ng-container>
     <ng-container *ngIf="user.role === 'ADMINISTRATOR'">
       <ng-template tdDataTableTemplate="description" let-value="value">
-        <mat-form-field class="w-100" appareance="legacy">
-          <input matInput [value]="value ? value : '-'" (click)="$event.stopPropagation()">
+        <mat-form-field class="w-100" color="accent">
+          <textarea matInput [value]="value ? value : '-'" (click)="$event.stopPropagation()"></textarea>
           <mat-icon matSuffix color="accent">edit</mat-icon>
         </mat-form-field>
       </ng-template>
@@ -46,10 +46,13 @@
         <mat-form-field appearance="fill" fxFlex="1 1 auto" class="w-100">
           <mat-label>Nombre:</mat-label>
           <input matInput readonly [(ngModel)]="user.name">
+          <mat-icon matSuffix color="accent">person_outline</mat-icon>
+
         </mat-form-field>
         <mat-form-field appearance="fill" fxFlex="1 1 auto" class="w-100">
           <mat-label>Nombre de la Cuenta:</mat-label>
           <input matInput readonly [(ngModel)]="user.username">
+          <mat-icon matSuffix color="accent">account_box</mat-icon>
         </mat-form-field>
         <div fxFlex="1 1 auto" class="w-100">
           <mat-form-field appearance="fill" fxFlex="0 1 auto" class="w-100">
