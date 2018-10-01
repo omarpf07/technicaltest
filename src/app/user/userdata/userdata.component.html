@@ -24,8 +24,7 @@
     <ng-container *ngIf="user.role === 'ADMINISTRATOR'">
       <ng-template tdDataTableTemplate="description" let-value="value">
         <mat-form-field class="w-100" color="accent">
-          <textarea matInput [value]="value ? value : '-'" (click)="$event.stopPropagation()"></textarea>
-          <mat-icon matSuffix color="accent">edit</mat-icon>
+          <input matInput [value]="value ? value : '-'" (click)="$event.stopPropagation()">
         </mat-form-field>
       </ng-template>
     </ng-container>
@@ -41,39 +40,41 @@
       <h5>Información del usuario</h5>
     </mat-card-title>
     <mat-divider></mat-divider>
-    <mat-card-content class="pt-3">
-      <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
-        <mat-form-field appearance="fill" fxFlex="1 1 auto" class="w-100">
-          <mat-label>Nombre:</mat-label>
-          <input matInput readonly [(ngModel)]="user.name">
-          <mat-icon matSuffix color="accent">person_outline</mat-icon>
-
-        </mat-form-field>
-        <mat-form-field appearance="fill" fxFlex="1 1 auto" class="w-100">
-          <mat-label>Nombre de la Cuenta:</mat-label>
-          <input matInput readonly [(ngModel)]="user.username">
-          <mat-icon matSuffix color="accent">account_box</mat-icon>
-        </mat-form-field>
-        <div fxFlex="1 1 auto" class="w-100">
-          <mat-form-field appearance="fill" fxFlex="0 1 auto" class="w-100">
-            <mat-label>Escoge tu país</mat-label>
-            <mat-select placeholder="Escoge tu país">
-              <mat-option *ngFor="let country of countries" [value]="country.id">
-                {{country.name}}
-              </mat-option>
-            </mat-select>
-            <mat-icon matSuffix color="accent">my_location</mat-icon>
+    <form [formGroup]="userForm" novalidate (ngSubmit)="save()">
+      <mat-card-content class="pt-3">
+        <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
+          <mat-form-field appearance="fill" fxFlex="1 1 auto" class="w-100">
+            <mat-label>Nombre:</mat-label>
+            <input matInput readonly [value]="user.name">
+            <mat-icon matSuffix color="accent">person_outline</mat-icon>
+          </mat-form-field>
+          <mat-form-field appearance="fill" fxFlex="1 1 auto" class="w-100">
+            <mat-label>Nombre de la Cuenta:</mat-label>
+            <input matInput readonly [value]="user.username">
+            <mat-icon matSuffix color="accent">account_box</mat-icon>
+          </mat-form-field>
+          <div fxFlex="1 1 auto" class="w-100">
+            <mat-form-field appearance="fill" fxFlex="0 1 auto" class="w-100">
+              <mat-label>País de procedencia</mat-label>
+              <input matInput formControlName="country">
+              <mat-icon matSuffix color="accent">my_location</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="column" *ngIf="user.description">
+          <mat-form-field appearance="fill" fxFlex="0 1 auto">
+            <mat-label>Acerca de ti</mat-label>
+            <textarea matInput formControlName="description" maxlength="1000"></textarea>
+            <mat-hint align="end" class="text-muted">{{user?.description.length}} / 50</mat-hint>
+            <mat-icon matSuffix color="accent">description</mat-icon>
           </mat-form-field>
         </div>
-      </div>
-      <div fxLayout="column">
-        <mat-form-field appearance="fill" fxFlex="0 1 auto">
-          <mat-label>Acerca de ti</mat-label>
-          <textarea matInput [(ngModel)]="user.description" maxlength="1000"></textarea>
-          <mat-hint align="end" class="text-muted">{{user.description.length}} / 50</mat-hint>
-        </mat-form-field>
-      </div>
-    </mat-card-content>
+      </mat-card-content>
+      <mat-card-actions>
+        <button class="float-right mr-3" mat-raised-button color="primary" type="submit" [disabled]="userForm.disabled || userForm.pristine">Guardar
+          Cambios</button>
+      </mat-card-actions>
+    </form>
   </mat-card>
 </div>
 

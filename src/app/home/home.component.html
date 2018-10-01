@@ -1,6 +1,6 @@
 <div fxLayout="column" *ngIf="auth.isConnected()" class="p-2 h-100">
-  <div fxFlex="0 1 80px" fxFlexAlign="center center" class="border-bottom">
-    <h3> Bienvenido {{ auth.getUserName() }}</h3>
+  <div fxFlex="0 1 80px" class="border-bottom">
+    <h3 class="pt-3"> Bienvenido {{ auth.getUserName() }}</h3>
   </div>
   <div fxFlex="0 1 calc(100% - 80px)">
     <app-userdata [user]="auth.getUser()"></app-userdata>
